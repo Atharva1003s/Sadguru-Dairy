@@ -2,8 +2,13 @@
 
 // In production, VITE_API_URL points to the live Render backend
 const isDev = import.meta.env.DEV;
-const rawBase = import.meta.env.VITE_API_URL || (isDev ? '/api' : 'https://sadguru-dairy-api.onrender.com/api');
-const API_BASE = rawBase.replace(/\/+$/, '');
+let rawBase = import.meta.env.VITE_API_URL || (isDev ? '/api' : 'https://sadguru-dairy-api.onrender.com/api');
+rawBase = rawBase.trim().replace(/\/+$/, '');
+// Automatically ensure /api suffix if missing (e.g. if user entered https://sadguru-dairy-api.onrender.com)
+if (!rawBase.endsWith('/api') && rawBase !== '' && rawBase !== '/api') {
+  rawBase = `${rawBase}/api`;
+}
+const API_BASE = rawBase;
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('sadguru_dairy_token') || localStorage.getItem('nilesh_dairy_token');

@@ -30,11 +30,18 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Routes
+// Routes (support both /api/* and direct routes /* for zero-friction client calls)
 app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
 app.use('/api/customers', customerRoutes);
+app.use('/customers', customerRoutes);
+
 app.use('/api/entries', entryRoutes);
+app.use('/entries', entryRoutes);
+
 app.use('/api/settings', settingRoutes);
+app.use('/settings', settingRoutes);
 
 // Root route
 app.get('/', (req, res) => {
