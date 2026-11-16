@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://sadguru-dairy-api.onrender.com/api/:path*"
+    }
+  ]
+}

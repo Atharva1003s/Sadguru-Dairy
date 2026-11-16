@@ -1,7 +1,8 @@
 // Centralized API client for Sadguru Dairy App (सद्गुरू दुग्धालय)
 
-// In production, VITE_API_URL can be set to your backend URL (e.g. https://sadguru-dairy-api.onrender.com/api)
-const rawBase = import.meta.env.VITE_API_URL || '/api';
+// In production, VITE_API_URL points to the live Render backend
+const isDev = import.meta.env.DEV;
+const rawBase = import.meta.env.VITE_API_URL || (isDev ? '/api' : 'https://sadguru-dairy-api.onrender.com/api');
 const API_BASE = rawBase.replace(/\/+$/, '');
 
 const getAuthHeaders = () => {
