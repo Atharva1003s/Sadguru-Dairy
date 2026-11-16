@@ -49,17 +49,94 @@
 ### ६. दर व सेटिंग्ज (Rates & Settings)
 - गाय दूध दर (₹/L) आणि म्हैस दूध दर (₹/L) बदलणे.
 - डेअरीचे नाव (**सद्गुरू दुग्धालय / Sadguru Dairy**), टॅगलाईन, संपर्क फोन व UPI ID बदलणे.
-- आवश्यक असल्यास मूळ ९४ ग्राहक रीसीड करणे.
+- आवश्यक असल्यास मूळ ग्राहक रीसीड करणे.
 
 ---
 
-## 🔐 लॉगिन माहिती (Operator Login)
+## 🔐 Operator Login Details
 
-- **युजरनेम:** `admin`
-- **पासवर्ड:** `admin`
-- (लॉगिन स्क्रीनवर *"डिफॉल्ट क्रेडेंशियल्स भरा"* बटण दाबून एका क्लिकवर लॉगिन करता येते)
+- **Username:** `admin`
+- **Password:** `admin`
 
 ---
 
-## 🌐 भाषा पर्याय (Language Option)
-- स्क्रीनच्या उजव्या बाजूला वर **`English ⇄ मराठी`** बटण उपलब्ध आहे. एका क्लिकवर संपूर्ण ॲप इंग्रजीत (**Sadguru Dairy**) किंवा मराठीत (**सद्गुरू दुग्धालय**) पाहता येते.
+## 🌐 Language Switcher
+- In the top right header, click **`English ⇄ मराठी`** anytime to toggle the entire application between English and Marathi.
+
+---
+
+## 📱 Mobile App & Free Cloud Deployment Guide
+
+Follow these 4 simple steps to deploy online for free and install the app on your mobile phone:
+
+### Step 1: Free Cloud Database (MongoDB Atlas)
+1. Go to [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas) and sign up for a free account.
+2. Click **Create a Deployment** and select the **Free (M0)** tier (forever free, 512 MB).
+3. Under **Security Quickstart**:
+   - Create a database user (e.g. username: `admin`, password: `YourStrongPassword123`).
+   - Under **IP Access List**, add `0.0.0.0/0` (Allow Access from Anywhere).
+4. Click **Connect** -> **Drivers** -> Copy the connection string:
+   `mongodb+srv://admin:<password>@cluster0.xxxx.mongodb.net/sadguru_dairy?retryWrites=true&w=majority`
+   *(Replace `<password>` with your database user password)*.
+
+---
+
+### Step 2: Push Your Code to GitHub
+1. Create a free GitHub account at [https://github.com](https://github.com) if you don't already have one.
+2. Create a new repository named `sadguru-dairy`.
+3. In your project terminal, run:
+   ```bash
+   git remote add origin https://github.com/YOUR_GITHUB_USERNAME/sadguru-dairy.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+---
+
+### Step 3: Free Cloud Backend (Render.com)
+1. Go to [https://render.com](https://render.com) and log in with GitHub.
+2. Click **New +** -> **Web Service**.
+3. Select your `sadguru-dairy` repository.
+4. Fill in these settings:
+   - **Name:** `sadguru-dairy-api`
+   - **Root Directory:** `server`
+   - **Environment:** `Node`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Instance Type:** `Free`
+5. Scroll down to **Environment Variables** and add:
+   - `MONGO_URI`: *(Paste your MongoDB Atlas connection string from Step 1)*
+   - `JWT_SECRET`: `sadguru_dairy_secure_key_2026`
+6. Click **Deploy Web Service**.
+7. Once deployed, Render will give you a live URL, for example:
+   `https://sadguru-dairy-api.onrender.com`
+   *(On first run, it automatically seeds your admin account and all 49 customers!)*
+
+---
+
+### Step 4: Free Cloud Frontend (Vercel.com)
+1. Go to [https://vercel.com](https://vercel.com) and log in with GitHub.
+2. Click **Add New...** -> **Project**.
+3. Import your `sadguru-dairy` repository.
+4. In the configuration screen:
+   - **Root Directory:** Click edit and select `client`.
+   - **Framework Preset:** `Vite`
+   - Expand **Environment Variables** and add:
+     - Key: `VITE_API_URL`
+     - Value: `https://sadguru-dairy-api.onrender.com/api` *(Your Render backend URL followed by `/api`)*
+5. Click **Deploy**.
+6. Within 1 minute, Vercel gives you your live app URL, for example:
+   `https://sadguru-dairy.vercel.app`
+
+---
+
+### 📲 How to Install on Your Mobile Phone (Like Any Native App)
+1. Open your live Vercel URL (`https://sadguru-dairy.vercel.app`) in **Google Chrome** on your Android phone (or **Safari** on iPhone).
+2. **On Android:**
+   - Tap the **3 dots** (menu) at top right.
+   - Tap **"Add to Home screen"** or **"Install app"**.
+   - Tap **Install**.
+3. **On iPhone:**
+   - Tap the **Share** button (box with upward arrow) at bottom.
+   - Tap **"Add to Home Screen"**.
+4. The **सद्गुरू दुग्धालय (Sadguru Dairy)** icon is now on your phone screen! Tap it anytime to open in full screen without browser bars.
